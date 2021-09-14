@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Tic Tac Toe</title>
+</head>
+<script defer src="index.js"></script>
+<link href="index.css" rel="stylesheet">
+
+<body>
+    <div class="header">
+        <h1>Tic Tac Toe</h1>
+    </div>
+    <div class="container">
+        <div class="playerone">
+            <p>Player 1:</p>
+            <h1 id="playerone_name">Name</h1>
+            <h1 id="playerone_score">0</h1>
+        </div>
+        <div class="playertwo">
+            <p>Player 2:</p>
+            <h1 id="playertwo_name">Name</h1>
+            <h1 id="playertwo_score">0</h1>
+        </div>
+    </div>
+    <div class="reset">
+        <button id="reset">Reset</button>
+    </div>
+    <div class="modal notsubmitted">
+        <div class="form-container">
+            <form class="form">
+                <input type="text" placeholder="Player 1 - Name" class="name">
+                <input type="text" placeholder="Player 2 - Name" class="name">
+                <button id="submit" type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
