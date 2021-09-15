@@ -1,15 +1,19 @@
 let player1;
 let player2;
 
-const Player = (name, symbol) => {
-    let chance = true;
-    let score = 0;
-    const getChance = () => chance;
-    const setChance = (ch) => chance = ch;
-    const resetScore = () => score = 0;
-    const updateScore = () => ++score;
-    return { name, symbol, getChance, setChance, updateScore, resetScore };
-};
+class Player {
+    constructor(name, symbol) {
+        this.name = name;
+        this.symbol = symbol;
+        this.chance = true;
+        this.score = 0;
+    }
+
+    getChance() { return this.chance; }
+    setChance(ch) { this.chance = ch; }
+    resetScore() { this.score = 0; }
+    updateScore() { return ++(this.score); }
+}
 
 const gameBoard = (function () {
     let arr = new Array(9);
@@ -23,13 +27,13 @@ const gameBoard = (function () {
             const modal = document.querySelector('.modal');
             if (event.target == modal) {
                 modal.classList.add('submitted');
-                modal.classList.remove('notsubmitted'); 
+                modal.classList.remove('notsubmitted');
             }
         }
         form.onsubmit = function (e) {
             e.preventDefault();
-            player1 = Player(form.children[0].value, 'X');
-            player2 = Player(form.children[1].value, 'O');
+            player1 = new Player(form.children[0].value, 'X');
+            player2 = new Player(form.children[1].value, 'O');
             const playerone = document.querySelector('.playerone');
             const playertwo = document.querySelector('.playertwo');
             playerone.children[1].innerText = player1.name;
@@ -64,12 +68,7 @@ const displayController = (function reset() {
 const addMark = function () {
     const reset = document.querySelector('#reset');
     reset.onclick = function () {
-        gameBoard.resetArray();
-        const grid = document.querySelector('.grid');
-        grid.parentElement.removeChild(grid);
-        displayController.reset();
-        player1.setChance(true);
-        addMark();
+        clearGrid();
     }
     const grid_elements = document.querySelectorAll('.grid-element');
     let count = 0;
@@ -121,27 +120,24 @@ const checkWinCondition = function (count) {
                 window.alert(player2.name + " won!");
             }
 
-            gameBoard.resetArray();
-            const grid = document.querySelector('.grid');
-            grid.parentElement.removeChild(grid);
-            displayController.reset();
-            player1.setChance(true);
-            addMark();
+            clearGrid();
             return;
         }
     }
     if (count == 9) {
         window.alert('Draw!');
-        gameBoard.resetArray();
-        const grid = document.querySelector('.grid');
-        grid.parentElement.removeChild(grid);
-        displayController.reset();
-        player1.setChance(true);
-        addMark();
-
+        clearGrid();
     }
 }
 
+function clearGrid() {
+    gameBoard.resetArray();
+    const grid = document.querySelector('.grid');
+    grid.parentElement.removeChild(grid);
+    displayController.reset();
+    player1.setChance(true);
+    addMark();
+}
 
 
 gameBoard.getInfo();
